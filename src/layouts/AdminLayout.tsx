@@ -7,8 +7,8 @@ const navItems = [
   { to: '/admin/audit',  label: 'Log de Auditoría' },
 ]
 
-export default function AdminLayout() {
-  const { usuario, clearAuth } = useAuthStore()
+export const AdminLayout = () => {
+  const { user, clearAuth } = useAuthStore()
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -18,11 +18,9 @@ export default function AdminLayout() {
 
   return (
     <div className="flex h-screen bg-gray-50">
-      <aside className="w-64 bg-[#1A3A6B] flex flex-col">
+      <aside className="w-64 bg-[#1A3A6B] flex flex-col shrink-0">
         <div className="px-6 py-5 border-b border-white/10">
-          <h1 className="text-white font-semibold text-base leading-tight">
-            Bienestar
-          </h1>
+          <h1 className="text-white font-medium text-base">Bienestar</h1>
           <p className="text-white/50 text-xs mt-0.5">Administración</p>
         </div>
 
@@ -32,7 +30,7 @@ export default function AdminLayout() {
               key={item.to}
               to={item.to}
               className={({ isActive }) =>
-                `flex items-center px-3 py-2 rounded-lg text-sm transition-colors ${
+                `block px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive
                     ? 'bg-white/15 text-white font-medium'
                     : 'text-white/60 hover:bg-white/10 hover:text-white'
@@ -46,12 +44,12 @@ export default function AdminLayout() {
 
         <div className="px-4 py-4 border-t border-white/10">
           <p className="text-white/80 text-sm font-medium truncate">
-            {usuario?.nombre} {usuario?.apellido}
+            {user?.firstName} {user?.lastName}
           </p>
-          <p className="text-white/40 text-xs truncate">{usuario?.email}</p>
+          <p className="text-white/40 text-xs truncate mt-0.5">{user?.email}</p>
           <button
             onClick={handleLogout}
-            className="mt-3 w-full text-left text-xs text-white/40 hover:text-white/80 transition-colors"
+            className="mt-3 text-xs text-white/40 hover:text-white/80 transition-colors"
           >
             Cerrar sesión
           </button>

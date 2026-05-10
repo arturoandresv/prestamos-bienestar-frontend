@@ -1,51 +1,51 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
-import type { Usuario, Rol } from '../types'
+import type { User, Role } from '../types'
 
-// ── Tipos del store ────────────────────────────────
+// ── Auth state ─────────────────────────────────────
 interface AuthState {
-  usuario: Usuario | null
+  user: User | null
   token: string | null
   isAuthenticated: boolean
 
-  // Acciones
-  setAuth: (usuario: Usuario, token: string) => void
+  // Actions
+  setAuth: (user: User, token: string) => void
   clearAuth: () => void
 
-  // Helpers de rol
-  isEstudiante: () => boolean
-  isAuxiliar: () => boolean
+  // Role helpers
+  isStudent: () => boolean
+  isAssistant: () => boolean
   isAdmin: () => boolean
-  hasRole: (rol: Rol) => boolean
+  hasRole: (role: Role) => boolean
 }
 
 // ── Store ──────────────────────────────────────────
 export const useAuthStore = create<AuthState>()(
   persist(
     (set, get) => ({
-      usuario: null,
+      user: null,
       token: null,
       isAuthenticated: false,
 
-      setAuth: (usuario, token) => {
+      setAuth: (user, token) => {
         localStorage.setItem('token', token)
-        set({ usuario, token, isAuthenticated: true })
+        set({ user, token, isAuthenticated: true })
       },
 
       clearAuth: () => {
         localStorage.removeItem('token')
-        set({ usuario: null, token: null, isAuthenticated: false })
+        set({ user: null, token: null, isAuthenticated: false })
       },
 
-      isEstudiante: () => get().usuario?.rol === 'estudiante',
-      isAuxiliar: () => get().usuario?.rol === 'auxiliar',
-      isAdmin: () => get().usuario?.rol === 'administrador',
-      hasRole: (rol) => get().usuario?.rol === rol,
+      isStudent:   () => get().user?.role === 'student',
+      isAssistant: () => get().user?.role === 'assistant',
+      isAdmin:     () => get().user?.role === 'admin',
+      hasRole:     (role) => get().user?.role === role,
     }),
     {
       name: 'auth-storage',
       partialize: (state) => ({
-        usuario: state.usuario,
+        user: state.user,
         token: state.token,
         isAuthenticated: state.isAuthenticated,
       }),

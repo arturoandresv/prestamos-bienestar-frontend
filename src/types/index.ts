@@ -1,104 +1,106 @@
 // ── Roles ──────────────────────────────────────────
-export type Rol = 'estudiante' | 'auxiliar' | 'administrador'
+export type Role = 'student' | 'assistant' | 'admin'
 
-// ── Usuario ────────────────────────────────────────
-export interface Usuario {
-  id_persona: number
-  nombre: string
-  apellido: string
+// ── User ───────────────────────────────────────────
+export interface User {
+  id: number
+  firstName: string
+  lastName: string
   email: string
-  rol: Rol
+  role: Role
 }
 
-export interface Estudiante extends Usuario {
-  codigo_estudiantil: string
-  carnet_en_garantia: boolean
+export interface Student extends User {
+  studentCode: string
+  cardHeldAsGuarantee: boolean
 }
 
-// ── Artículo ───────────────────────────────────────
-export interface Articulo {
-  id_articulo: number
-  nombre: string
-  descripcion: string
-  cantidad_total: number
-  cantidad_disponible: number
-  id_tipo: number
-  tipo_nombre: string
-  id_estado: number
-  estado_nombre: 'disponible' | 'agotado' | 'inactivo'
+// ── Article ────────────────────────────────────────
+export type ArticleStatus = 'available' | 'out_of_stock' | 'inactive'
+
+export interface Article {
+  id: number
+  name: string
+  description: string
+  totalQuantity: number
+  availableQuantity: number
+  typeId: number
+  typeName: string
+  statusId: number
+  status: ArticleStatus
 }
 
-// ── Reserva ────────────────────────────────────────
-export type EstadoReserva = 'activa' | 'cancelada' | 'expirada' | 'convertida'
+// ── Reservation ────────────────────────────────────
+export type ReservationStatus = 'active' | 'cancelled' | 'expired' | 'converted'
 
-export interface Reserva {
-  id_reserva: number
-  fecha_inicio: string
-  fecha_limite_reclamo: string
-  id_estudiante: number
-  estudiante_nombre?: string
-  id_articulo: number
-  articulo_nombre?: string
-  id_estado: number
-  estado: EstadoReserva
+export interface Reservation {
+  id: number
+  startDate: string
+  claimDeadline: string
+  studentId: number
+  studentName?: string
+  articleId: number
+  articleName?: string
+  statusId: number
+  status: ReservationStatus
 }
 
-// ── Préstamo ───────────────────────────────────────
-export type EstadoPrestamo = 'activo' | 'cerrado' | 'vencido'
-export type EstadoArticuloDevuelto = 'buen_estado' | 'mal_estado'
+// ── Loan ───────────────────────────────────────────
+export type LoanStatus = 'active' | 'closed' | 'overdue'
+export type ReturnedArticleStatus = 'good_condition' | 'poor_condition'
 
-export interface Prestamo {
-  id_prestamo: number
-  fecha_entrega: string
-  fecha_limite_devolucion: string
-  fecha_devolucion_real?: string
-  estado: EstadoPrestamo
-  estado_articulo_devuelto?: EstadoArticuloDevuelto
-  id_reserva: number
-  id_auxiliar: number
-  articulo_nombre?: string
-  estudiante_nombre?: string
+export interface Loan {
+  id: number
+  deliveryDate: string
+  returnDeadline: string
+  actualReturnDate?: string
+  status: LoanStatus
+  returnedArticleStatus?: ReturnedArticleStatus
+  reservationId: number
+  assistantId: number
+  articleName?: string
+  studentName?: string
 }
 
-// ── Sanción ────────────────────────────────────────
-export type EstadoSancion = 'activa' | 'cerrada'
+// ── Sanction ───────────────────────────────────────
+export type SanctionStatus = 'active' | 'closed'
 
-export interface Sancion {
-  id_penalizacion: number
-  motivo: string
-  fecha_inicio: string
-  fecha_cierre?: string
-  estado: EstadoSancion
-  id_prestamo: number
-  id_tipo: number
-  tipo_nombre?: string
-  id_estudiante: number
-  estudiante_nombre?: string
+export interface Sanction {
+  id: number
+  reason: string
+  startDate: string
+  closeDate?: string
+  status: SanctionStatus
+  loanId: number
+  typeId: number
+  typeName?: string
+  studentId: number
+  studentName?: string
 }
 
-// ── Log de auditoría ───────────────────────────────
-export interface LogAuditoria {
-  id_log: number
-  accion: string
-  fecha_hora: string
-  resultado: 'exitoso' | 'fallido'
-  id_persona: number
-  usuario_nombre?: string
-  usuario_rol?: Rol
+// ── Audit Log ──────────────────────────────────────
+export interface AuditLog {
+  id: number
+  action: string
+  timestamp: string
+  result: 'success' | 'failed'
+  userId: number
+  userName?: string
+  userRole?: Role
 }
 
 // ── Auth ───────────────────────────────────────────
 export interface LoginRequest {
   email: string
-  contrasena: string
+  password: string
 }
 
 export interface LoginResponse {
   token: string
-  usuario: Usuario
+  user: User
 }
 
-// ── API responses genéricas ────────────────────────
+// ── Generic API responses ──────────────────────────
 export interface ApiResponse<T> {
   data: T
   message?: string

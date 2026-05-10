@@ -1,16 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { useAuthStore } from './store/authStore'
-import type { Rol } from './types'
-import StudentLayout from './layouts/StudentLayout'
-import AssistantLayout from './layouts/AssistantLayout'
-import AdminLayout from './layouts/AdminLayout'
+import type { Role } from './types'
+import { StudentLayout } from './layouts/StudentLayout'
+import { AssistantLayout } from './layouts/AssistantLayout'
+import { AdminLayout} from './layouts/AdminLayout'
+import { LoginPage } from './pages/auth/LoginPage'
 
+// ── Protected route ────────────────────────────────
 function ProtectedRoute({
   children,
   allowedRoles,
 }: {
   readonly children: React.ReactNode
-  readonly allowedRoles: Rol[]
+  readonly allowedRoles: Role[]
 }) {
   const { isAuthenticated, hasRole } = useAuthStore()
   if (!isAuthenticated) return <Navigate to="/login" replace />
@@ -18,17 +20,19 @@ function ProtectedRoute({
   return <>{children}</>
 }
 
+// ── App ────────────────────────────────────────────
 export default function App() {
   return (
     <BrowserRouter>
       <Routes>
-        {/* Públicas */}
-        <Route path="/login"    element={<div>Login</div>} />
-        <Route path="/register" element={<div>Register</div>} />
 
-        {/* Estudiante */}
+        {/* Public */}
+        <Route path="/login"    element={<LoginPage />} />
+        <Route path="/register" element={<div>Registro</div>} />
+
+        {/* Student */}
         <Route element={
-          <ProtectedRoute allowedRoles={['estudiante']}>
+          <ProtectedRoute allowedRoles={['student']}>
             <StudentLayout />
           </ProtectedRoute>
         }>
@@ -39,9 +43,9 @@ export default function App() {
           <Route path="/profile"      element={<div>Mi Perfil</div>} />
         </Route>
 
-        {/* Auxiliar */}
+        {/* Assistant */}
         <Route element={
-          <ProtectedRoute allowedRoles={['auxiliar']}>
+          <ProtectedRoute allowedRoles={['assistant']}>
             <AssistantLayout />
           </ProtectedRoute>
         }>
@@ -56,7 +60,7 @@ export default function App() {
 
         {/* Admin */}
         <Route element={
-          <ProtectedRoute allowedRoles={['administrador']}>
+          <ProtectedRoute allowedRoles={['admin']}>
             <AdminLayout />
           </ProtectedRoute>
         }>
@@ -69,6 +73,7 @@ export default function App() {
         <Route path="/"             element={<Navigate to="/login" replace />} />
         <Route path="/unauthorized" element={<div>No autorizado</div>} />
         <Route path="*"             element={<Navigate to="/login" replace />} />
+
       </Routes>
     </BrowserRouter>
   )

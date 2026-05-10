@@ -1,15 +1,15 @@
 import axios from 'axios'
 import type { LoginRequest, LoginResponse } from '../types'
 
-// ── Instancia base ─────────────────────────────────
-const api = axios.create({
+// ── Base instance ──────────────────────────────────
+export const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:3000',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-// ── Interceptor de request: agrega JWT ────────────
+// ── Request interceptor: attach JWT ───────────────
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token')
@@ -21,13 +21,13 @@ api.interceptors.request.use(
   (error) => Promise.reject(error)
 )
 
-// ── Interceptor de response: maneja errores ────────
+// ── Response interceptor: handle errors ───────────
 api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
-      localStorage.removeItem('usuario')
+      localStorage.removeItem('user')
       globalThis.location.href = '/login'
     }
     return Promise.reject(error)
@@ -43,9 +43,7 @@ export const authService = {
 
   logout: () => {
     localStorage.removeItem('token')
-    localStorage.removeItem('usuario')
+    localStorage.removeItem('user')
     globalThis.location.href = '/login'
   },
 }
-
-export default api
