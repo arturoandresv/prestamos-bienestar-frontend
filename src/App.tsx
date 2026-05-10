@@ -6,6 +6,7 @@ import { AssistantLayout } from './layouts/AssistantLayout'
 import { AdminLayout} from './layouts/AdminLayout'
 import { LoginPage } from './pages/auth/LoginPage'
 import { RegisterPage } from './pages/auth/RegisterPage'
+import { CatalogPage } from './pages/student/CatalogPage'
 
 // ── Protected route ────────────────────────────────
 function ProtectedRoute({
@@ -37,7 +38,7 @@ export default function App() {
             <StudentLayout />
           </ProtectedRoute>
         }>
-          <Route path="/catalog"      element={<div>Catálogo</div>} />
+          <Route path="/catalog"      element={<CatalogPage />} />
           <Route path="/reservations" element={<div>Mis Reservas</div>} />
           <Route path="/loans"        element={<div>Mis Préstamos</div>} />
           <Route path="/sanctions"    element={<div>Mis Sanciones</div>} />
