@@ -1,5 +1,5 @@
 import axios from 'axios'
-import type { LoginRequest, LoginResponse } from '../types'
+import type { LoginRequest, LoginResponse, RegisterRequest } from '../types'
 
 // ── Base instance ──────────────────────────────────
 export const api = axios.create({
@@ -39,6 +39,10 @@ export const authService = {
   login: async (credentials: LoginRequest): Promise<LoginResponse> => {
     const { data } = await api.post<LoginResponse>('/auth/login', credentials)
     return data
+  },
+
+  register: async (payload: RegisterRequest): Promise<void> => {
+    await api.post('/auth/register', payload)
   },
 
   logout: () => {

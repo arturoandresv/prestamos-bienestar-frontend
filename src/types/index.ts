@@ -90,6 +90,14 @@ export interface AuditLog {
 }
 
 // ── Auth ───────────────────────────────────────────
+export interface RegisterRequest {
+  firstName: string
+  lastName: string
+  email: string
+  studentCode: string
+  password: string
+}
+
 export interface LoginRequest {
   email: string
   password: string
