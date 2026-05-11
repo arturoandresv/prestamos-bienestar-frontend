@@ -8,6 +8,7 @@ import { LoginPage } from "./pages/auth/LoginPage";
 import { RegisterPage } from "./pages/auth/RegisterPage";
 import { CatalogPage } from "./pages/student/CatalogPage";
 import { ArticleDetailPage } from "./pages/student/ArticleDetailPage";
+import { ConfirmReservationPage } from "./pages/student/ConfirmReservationPage";
 
 // ── Protected route ────────────────────────────────
 function ProtectedRoute({
@@ -45,7 +46,7 @@ export default function App() {
           <Route path="/catalog/:id" element={<ArticleDetailPage />} />
           <Route
             path="/catalog/:id/reserve"
-            element={<div>Confirmar Reserva</div>}
+            element={<ConfirmReservationPage />}
           />
           <Route path="/reservations" element={<div>Mis Reservas</div>} />
           <Route path="/loans" element={<div>Mis Préstamos</div>} />
