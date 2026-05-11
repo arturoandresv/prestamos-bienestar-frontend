@@ -1,14 +1,17 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuthStore } from "./store/authStore";
 import type { Role } from "./types";
-import { StudentLayout } from "./layouts/StudentLayout";
-import { AssistantLayout } from "./layouts/AssistantLayout";
-import { AdminLayout } from "./layouts/AdminLayout";
-import { LoginPage } from "./pages/auth/LoginPage";
-import { RegisterPage } from "./pages/auth/RegisterPage";
-import { CatalogPage } from "./pages/student/CatalogPage";
-import { ArticleDetailPage } from "./pages/student/ArticleDetailPage";
-import { ConfirmReservationPage } from "./pages/student/ConfirmReservationPage";
+import { AdminLayout, AssistantLayout, StudentLayout } from "./layouts";
+import { LoginPage, RegisterPage } from "./pages/auth";
+import {
+  ArticleDetailPage,
+  CatalogPage,
+  ConfirmReservationPage,
+  LoanHistoryPage,
+  ProfilePage,
+  ReservationsPage,
+  SanctionHistoryPage,
+} from "./pages/student";
 
 // ── Protected route ────────────────────────────────
 function ProtectedRoute({
@@ -48,10 +51,10 @@ export default function App() {
             path="/catalog/:id/reserve"
             element={<ConfirmReservationPage />}
           />
-          <Route path="/reservations" element={<div>Mis Reservas</div>} />
-          <Route path="/loans" element={<div>Mis Préstamos</div>} />
-          <Route path="/sanctions" element={<div>Mis Sanciones</div>} />
-          <Route path="/profile" element={<div>Mi Perfil</div>} />
+          <Route path="/reservations" element={<ReservationsPage />} />
+          <Route path="/loans" element={<LoanHistoryPage />} />
+          <Route path="/sanctions" element={<SanctionHistoryPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Route>
 
         {/* Assistant */}
