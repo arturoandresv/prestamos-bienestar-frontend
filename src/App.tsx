@@ -21,6 +21,8 @@ import {
   SanctionManagementPage,
   StudentLookupPage,
 } from "./pages/assistant";
+import { SystemConfigPage, UserManagementPage } from "./pages/admin";
+import { AuditLogPage } from "./pages/admin/AuditLogPage";
 
 // ── Protected route ────────────────────────────────
 function ProtectedRoute({
@@ -91,9 +93,9 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/admin/users" element={<div>Usuarios</div>} />
-          <Route path="/admin/config" element={<div>Configuración</div>} />
-          <Route path="/admin/audit" element={<div>Auditoría</div>} />
+          <Route path="/admin/users" element={<UserManagementPage />} />
+          <Route path="/admin/config" element={<SystemConfigPage />} />
+          <Route path="/admin/audit" element={<AuditLogPage />} />
         </Route>
 
         {/* Fallbacks */}
