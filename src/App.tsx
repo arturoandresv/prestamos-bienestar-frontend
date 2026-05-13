@@ -12,6 +12,14 @@ import {
   ReservationsPage,
   SanctionHistoryPage,
 } from "./pages/student";
+import {
+  ApproveDeliveryPage,
+  InventoryPage,
+  RegisterReturnPage,
+  ReportsPage,
+  SanctionManagementPage,
+  StudentLookupPage,
+} from "./pages/assistant";
 
 // ── Protected route ────────────────────────────────
 function ProtectedRoute({
@@ -66,12 +74,12 @@ export default function App() {
           }
         >
           <Route path="/dashboard" element={<div>Dashboard</div>} />
-          <Route path="/delivery" element={<div>Aprobar Entrega</div>} />
-          <Route path="/returns" element={<div>Registrar Devolución</div>} />
-          <Route path="/sanctions" element={<div>Sanciones</div>} />
-          <Route path="/inventory" element={<div>Inventario</div>} />
-          <Route path="/reports" element={<div>Reportes</div>} />
-          <Route path="/students" element={<div>Buscar Estudiante</div>} />
+          <Route path="/delivery" element={<ApproveDeliveryPage />} />
+          <Route path="/returns" element={<RegisterReturnPage />} />
+          <Route path="/sanctions" element={<SanctionManagementPage />} />
+          <Route path="/inventory" element={<InventoryPage />} />
+          <Route path="/students" element={<StudentLookupPage />} />
+          <Route path="/reports" element={<ReportsPage />} />
         </Route>
 
         {/* Admin */}
