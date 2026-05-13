@@ -14,6 +14,7 @@ import {
 } from "./pages/student";
 import {
   ApproveDeliveryPage,
+  DashboardPage,
   InventoryPage,
   RegisterReturnPage,
   ReportsPage,
@@ -73,7 +74,7 @@ export default function App() {
             </ProtectedRoute>
           }
         >
-          <Route path="/dashboard" element={<div>Dashboard</div>} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="/delivery" element={<ApproveDeliveryPage />} />
           <Route path="/returns" element={<RegisterReturnPage />} />
           <Route path="/sanctions" element={<SanctionManagementPage />} />
